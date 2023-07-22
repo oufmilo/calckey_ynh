@@ -7,7 +7,15 @@
 #=================================================
 
 source _common.sh
+source ynh_handle_app_migration
 source /usr/share/yunohost/helpers
+
+#=================================================
+# LOAD SETTINGS
+#=================================================
+ynh_script_progression --message="Loading installation settings..."
+
+app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
 # CHECK VERSION
@@ -26,6 +34,32 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
 # Stop service before backup, to not loose message in case of failed upgrade and restore
 ynh_systemd_action --service_name=$app --action="stop" --log_path=systemd --line_match="Stopped"
+
+#=================================================
+# HANDLE MIGRATION FROM FIREFISH
+#=================================================
+
+ynh_handle_app_migration --migration_id="firefish" --migration_list="firefish_migration"
+
+if [ $migration_process -eq 1 ]
+then
+	# If a migration has been perform
+	# Reload some values changed by the migration process
+	install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
+	db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+
+
+	# Manage permissions
+	ynh_permission_update --permission="main" --add="all_users"
+	ynh_permission_update --permission="main" --add="visitors"
+
+	# Remove the service from the list of services known by YunoHost (added from `yunohost service add`)
+	if ynh_exec_warn_less yunohost service status $old_app >/dev/null
+	then
+		ynh_script_progression --message="Removing $old_app service integration..."
+		yunohost service remove $old_app
+	fi
+fi
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -129,6 +163,24 @@ yunohost service add $app --description="A interplanetary blogging platform" --l
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="All workers started"
+
+#=================================================
+# FINISH MIGRATION PROCESS
+#=================================================
+
+if [ $migration_process -eq 1 ]
+then
+	ynh_script_progression --message="Calckey has been successfully migrated to Firefish! \
+A last scheduled operation will run in a couple of minutes to finish the \
+migration in YunoHost side. Do not proceed any application operation while \
+you don't see Vaultwarden as installed."
+	script_post_migration=firefish_post_migration.sh
+	cp ../conf/$script_post_migration /tmp
+	ynh_replace_string --match_string="__OLD_APP__" --replace_string="$old_app" --target_file=/tmp/$script_post_migration
+	ynh_replace_string --match_string="__NEW_APP__" --replace_string="$app" --target_file=/tmp/$script_post_migration
+	chmod +x /tmp/$script_post_migration
+	(cd /tmp; echo "/tmp/$script_post_migration > /tmp/$script_post_migration.log 2>&1" | at now + 2 minutes)
+fi
 
 #=================================================
 # END OF SCRIPT
