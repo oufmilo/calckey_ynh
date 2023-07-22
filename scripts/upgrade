@@ -48,11 +48,6 @@ then
 	install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
 	db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 
-
-	# Manage permissions
-	ynh_permission_update --permission="main" --add="all_users"
-	ynh_permission_update --permission="main" --add="visitors"
-
 	# Remove the service from the list of services known by YunoHost (added from `yunohost service add`)
 	if ynh_exec_warn_less yunohost service status $old_app >/dev/null
 	then
