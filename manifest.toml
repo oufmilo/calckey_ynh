@@ -5,15 +5,15 @@ name = "Calckey"
 description.en = "Fork of Misskey with better UI/UX, security, features"
 description.fr = "Un fork de Misskey avec une meilleure interface utilisateur, la sécurité, les fonctionnalités"
 
-version = "13.1.4.1~ynh1"
+version = "1.0.3~ynh1"
 
 maintainers = ["oufmilo"]
 
 [upstream]
 license = "AGPL-3.0"
-website = "https://i.calckey.cloud/"
-demo = "https://i.calckey.cloud/"
-code = "https://codeberg.org/calckey/calckey"
+website = "https://joinfirefish.org/"
+demo = "https://joinfirefish.org/"
+code = "https://git.joinfirefish.org/firefish/firefish"
 
 [integration]
 yunohost = ">= 11.1.14"
@@ -40,8 +40,8 @@ ram.runtime = "2G"
 [resources]
 
     [resources.sources.main]
-    url = "https://codeberg.org/calckey/calckey/archive/v13.1.4.1.tar.gz"
-    sha256 = "5bd66e8ade6abaf205da6c4ad9a9389719c09ce0bbf672389e1b84af48afcbbc"
+    url = "https://git.joinfirefish.org/firefish/firefish/-/archive/v1.0.3/firefish-v1.0.3.tar.gz"
+    sha256 = "0a3e2576dd2c9a104d1d937da17c36ed8ca4cbeb0ebe1bdbdde9147c15e1cb1b
 
     [resources.system_user]
 
