@@ -39,7 +39,7 @@ ynh_systemd_action --service_name=$app --action="stop" --log_path=systemd --line
 # HANDLE MIGRATION FROM FIREFISH
 #=================================================
 
-ynh_handle_app_migration --migration_id="firefish" --migration_list="firefish_migration"
+ynh_handle_app_migration --migration_id="calckey" --migration_list="calckey_migration"
 
 if [ $migration_process -eq 1 ]
 then
