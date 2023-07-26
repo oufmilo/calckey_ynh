@@ -9,9 +9,7 @@ test_format = 1.0
     # -------------------------------
     # Default args to use for install
     # -------------------------------
-      exclude = ["install.private", "install.nourl", "install.multi"]
+      exclude = ["install.nourl"]
     # -------------------------------
     # Commits to test upgrade from
     # -------------------------------
-
-    test_upgrade_from.89f4f52.name = "Upgrade from 13.0.5"
