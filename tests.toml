@@ -9,9 +9,8 @@ test_format = 1.0
     # -------------------------------
     # Default args to use for install
     # -------------------------------
-      exclude = ["install.private", "install.nourl", "install.multi"]
+      exclude = ["install.nourl"]
     # -------------------------------
     # Commits to test upgrade from
     # -------------------------------
 
-    test_upgrade_from.89f4f52.name = "13.1.4.1"
