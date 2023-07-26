@@ -98,10 +98,6 @@ ynh_script_progression --message="Upgrading dependencies..." --weight=5
 
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
-# REMOVE YARN (upgrade from 13.0.x to 13.1.x)
-ynh_script_progression --message="Removing old version dependency..."
-ynh_secure_remove --file="$install_dir/.yarn"
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -120,7 +116,7 @@ pushd "$install_dir"
 	export PATH="$install_dir/.cargo/bin:$PATH"
 	ynh_use_nodejs
 	corepack enable
-    	corepack prepare pnpm@latest --activate
+    corepack prepare pnpm@latest --activate
   	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm clean-all
    	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install
  	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production pnpm run build

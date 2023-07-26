@@ -1,7 +1,7 @@
 packaging_format = 2
 
-id = "calckey"
-name = "Calckey"
+id = "firefish"
+name = "Firefish"
 description.en = "Fork of Misskey with better UI/UX, security, features"
 description.fr = "Fork de Misskey avec une meilleure interface utilisateur, la sécurité, les fonctionnalités"
 
