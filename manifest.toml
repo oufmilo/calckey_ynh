@@ -3,7 +3,7 @@ packaging_format = 2
 id = "firefish"
 name = "Firefish"
 description.en = "Fork of Misskey with better UI/UX, security, features"
-description.fr = "Un fork de Misskey avec une meilleure interface utilisateur, la sécurité, les fonctionnalités"
+description.fr = "Fork de Misskey avec une meilleure interface utilisateur, la sécurité, les fonctionnalités"
 
 version = "1.0.3~ynh1"
 
@@ -16,12 +16,12 @@ demo = "https://joinfirefish.org/"
 code = "https://git.joinfirefish.org/firefish/firefish"
 
 [integration]
-yunohost = ">= 11.1.14"
-architectures = "all" 
+yunohost = ">= 11.1.21"
+architectures = "all"
 multi_instance = false
-ldap = "not_relevant" 
-sso = "not_relevant" 
-disk = "50M" 
+ldap = "not_relevant"
+sso = "not_relevant"
+disk = "50M"
 ram.build = "2G"
 ram.runtime = "2G"
 
@@ -54,7 +54,7 @@ ram.runtime = "2G"
     main.default = 3020
 
     [resources.apt]
-    packages = "ffmpeg, postgresql, build-essential"
+    packages = "ffmpeg, postgresql, build-essential, curl"
 
     [resources.database]
     type = "postgresql"
