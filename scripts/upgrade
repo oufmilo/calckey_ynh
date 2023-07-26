@@ -165,7 +165,7 @@ then
 A last scheduled operation will run in a couple of minutes to finish the \
 migration in YunoHost side. Do not proceed any application operation while \
 you don't see Vaultwarden as installed."
-	script_post_migration=app_post_migration.sh
+	script_post_migration=calckey_post_migration.sh
 	cp ../conf/$script_post_migration /tmp
 	ynh_replace_string --match_string="__OLD_APP__" --replace_string="$old_app" --target_file=/tmp/$script_post_migration
 	ynh_replace_string --match_string="__NEW_APP__" --replace_string="$app" --target_file=/tmp/$script_post_migration
